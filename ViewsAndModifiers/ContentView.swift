@@ -9,12 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-            Text("Hello, world!")
-                .frame(width: 200, height: 200)
-                .background(.red)
-                .onAppear {
-                    print(type(of: self.body))
-                }
+        Text("Hello, world!")
+        .padding()
+        .background(.red)
+        .padding()
+        .background(.blue)
+        .padding()
+        .background(.green)
+        .padding()
+        .background(.yellow)
+        .onAppear {
+            print(type(of: self.body))
+        }
     }
 }
 
