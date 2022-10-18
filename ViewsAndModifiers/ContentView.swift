@@ -32,6 +32,24 @@ struct Watermark: ViewModifier {
     }
 }
 
+struct GridStack<Content: View>: View {
+    let rows: Int
+    let columns: Int
+    let content: (Int, Int) -> Content
+
+    var body: some View {
+        VStack {
+            ForEach(0..<rows, id: \.self) { row in
+                HStack {
+                    ForEach(0..<columns, id: \.self) { column in
+                        content(row, column)
+                    }
+                }
+            }
+        }
+    }
+}
+
 extension View {
     func titleStyle() -> some View {
         modifier(Title())
@@ -50,8 +68,13 @@ struct ContentView: View {
                 .watermaked(with: "Nice day")
             Spacer()
             Color.blue
-                .frame(width: 300, height: 200)
+                .frame(width: 300, height: 50)
                 .watermaked(with: "Hacking with swift")
+            Spacer()
+            GridStack(rows: 4, columns: 2) { row, col in
+                Text("R\(row)")
+                    .watermaked(with: "C\(col)")
+            }
         }
         .onAppear {
             print(type(of: self.body))
